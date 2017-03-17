@@ -6,7 +6,10 @@ def guess():
     end=100
     middle=(start+end)//2
     while count<guess_num:
-        flag=input("Is the number higher,lower or same as {}".format(middle))
+        if (end-start) <=1:
+            print("Wait; How can it be both higher than {} and lower than {}?".format(start,end))
+            return
+        flag=input("Is the number higher,lower or same as {}? ".format(middle))
         if flag=="lower":
             end=middle
         if flag=="higher":
@@ -16,5 +19,7 @@ def guess():
             break
         middle=(start+end)//2
         count+=1
+    answer=int(input("I lost; What was the answer"))
+    print("Well played!")
 
 guess()
