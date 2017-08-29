@@ -1,0 +1,75 @@
+C00F	mem	lbl		op	addr	pseudo		comments
+0001	001	one
+0005	002	max
+0004	003	max-1
+0000	004	i
+0004	005	j
+0000	006	mem a[j]
+0000	007	mem a[j-1]
+0000	008	temp
+0046	009	mem array
+3000	00A	code load
+4000	00B	code store
+6000	00C	code sub
+BBBB	00D
+BBBB	00E	-----START-----
+3009	00F			load	009	a[0]
+5005	010			add	005	a[j]
+4006	011			store	006	> mem a[j]
+6001	012			sub	001	a[j-1]
+4007	013			store	007	> mem a[j-1]
+BBBB	014
+BBBB	015	-----IF-----
+500C	016			add	00C	-mem a[j-1]
+401C	017			store	01C	> *2
+3006	018			load	006	mem a[j]
+500A	019			add	00A	lmem a[j]
+401B	01A			store	01B	> *1
+0000	01B	*1		load		a[j]
+0000	01C	*2		sub		a[j]-a[j-1]
+E021	01D			jmpl	01F	if < 0
+C035	01E			jmp	035	loopiter
+BBBB	01F
+BBBB	020	-----SWAP-----
+3006	021			load	006	mem a[j]	temp = a[j]
+500A	022			add	00A	lmem a[j]
+4024	023			store	024	> *3
+0000	024	*3		load		a[j]
+4008	025			store	008	> temp
+3007	026			load	007	mem a[j-1]	a[j] = a[j-1]
+500A	027			add	00A	lmem a[j-1]
+402C	028			store	02B	> *4
+3006	029			load	006	mem a[j]
+500B	02A			add	00B	"> a[j]"
+402D	02B			store	02D	> *5
+0000	02C	*4		load		a[j-1]
+0000	02D	*5		store		> a[j]
+3007	02E			load	007	mem a[j-1]	a[j-1] = temp
+500B	02F			add	00B	">mem a[j-1]"
+4032	030			store	032	> *6
+3008	031			load	008	temp
+0000	032	*6		store		> mem a[j-1]
+BBBB	033
+BBBB	034	-----LOOP ITER-----
+3005	035			load	005	j		--j
+6001	036			sub	001	j-1
+4005	037			store	005	> j
+6004	038			sub	004	j-i		j == i?
+D03B	039			jmpe	03B	if = 0
+C00F	03A			jmp	00F	start
+3004	03B			load	004	i		++i
+5001	03C			add	001	i+1
+4004	03D			store	004	> i
+6003	03E			sub	003	i-(max-1)	i == max?
+D043	03F			jmpe	043 	END
+3003	040			load	003	max-1
+4005	041			store	005	> j
+C00F	042			jmp	00F	start
+0000	043	code end
+BBBB	044
+BBBB	045	-----ARRAY-----
+1111	046
+3333	047
+2222	048
+5555	049
+4444	04A

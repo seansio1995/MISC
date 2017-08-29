@@ -1,0 +1,90 @@
+C010        000                  jmp     iloop       
+0005        001     max          dw      5
+0000        002     zero         dw
+0001        003     one          dw
+0050        004     a            dw
+0000        005     i            dw
+0004        006     j            dw
+0000        007     tmp          dw
+0000        008     curr         dw
+0000        009     prev         dw
+3000        00A     loadit       3000
+4000        00B     storeit      4000
+B000        00C
+B000        00D
+B000        00E
+B000        00F
+3001        010     iloop        load     max
+6005        011                  sub      i
+E04B        012                  jmpl     xit
+D04B        013                  jmpe     xit
+B000        014
+B000        015
+B000        016
+3006        017     jloop        load      j
+6005        018                  sub       i
+E042        019                  jmpl      endi
+D042        01A                  jmpe      endi
+300A        01B                  load      loadit
+5004        01C                  add       a
+5006        01D                  add       j
+4024        01E                  store     doit
+6003        01F                  sub       one
+4026        020                  store     doit2
+B000        021
+B000        022
+B000        023
+0000        024    doit         dw         zero
+4008        025                 store      curr
+0000        026    doit2        dw
+4009        027                 store      prev
+3008        028                 load       curr
+6009        029                 sub        prev
+E02E        02A                 jmpl       swap
+C03E        02B                 jmp        endj
+B000        02C
+B000        02D
+300B        02E   swap          load       storeit
+5004        02F                 add        a
+5006        030                 add        j
+6003        031                 sub        one
+4034        032                 store      doit3
+3009        033                 load       prev
+0000        034   doit3         dw         zero
+300B        035                 load       storeit
+5004        036                 add        a
+5006        037                 add        j
+6003        038                 sub        one
+403D        039                 store      doit4
+3008        03A                 load       curr
+B000        03B
+B000        03C
+0000        03D  doit4          dw         0
+3006        03E  enj            load       j
+6003        03F                 sub        one
+4006        040                 store      j
+C017        041                 jmp        jloop
+3005        042  endi           load       i
+5003        043                 add        one
+4005        044                 store      i
+3001        045                 load       max
+6003        046                 sub        one
+4006        047                 store      j
+C010        048                 jmp        iloop
+B000        049
+B000        04A
+0000        04B  xit            halt
+B000        04C
+B000        04D
+B000        04E
+B000        04F
+0005        050  a[0]           dw          1
+0004        051  a[1]           dw          2
+0003        052  a[2]           dw          3
+0002        053  a[3]           dw          4
+0001        054  a[4]           dw          5
+B000        055
+B000        056
+B000        057
+B000        058
+B000        059
