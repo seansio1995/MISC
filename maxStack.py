@@ -19,4 +19,5 @@ class maxStack(object):
         return num
 
 
-    def
+    def get_Max(self):
+        return self.maxStack.peek()
