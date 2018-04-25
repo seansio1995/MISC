@@ -1,0 +1,10 @@
+def is_median(func):
+    if func(0,0,0)!=0:
+        return False
+    if func(3,1,2)!=2:
+        return False
+    if func(4,2,6)!=4:
+        return False
+    if func(7,3,9)!=7:
+        return False
+    return True
