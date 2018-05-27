@@ -44,7 +44,7 @@ class Graph(object):
 
         return edges
 
-    def find_all_paths(self,start,end,path=[]):
+    def find_path(self,start,end,path=[]):
         path=path+[start]
         if start==end:
             return path
@@ -61,10 +61,41 @@ class Graph(object):
 
 
 
+    def find_all_paths(self,start,end,path=[]):
+        path=path+[start]
+
+        if start==end:
+            return [path]
+
+        if start not in self.graph_dict:
+            return []
+
+        paths=[]
+        for node in self.graph_dict[start]:
+            if node not in path:
+                newpaths=self.find_all_paths(node,end,path)
+                for newpath in newpaths:
+                    paths.append(newpath)
+        return paths
 
 
-    def find_shortest_path(self,start,end):
-        pass
+    def find_shortest_path(self,start,end,path=[]):
+        path=path+[start]
+        if start==end:
+            return path
+
+        if start not in self.graph_dict:
+            return None
+
+        shortest=None
+        for node in self.graph_dict[start]:
+            if node not in path:
+                newpath=self.find_shortest_path(node,end,path)
+                if newpath:
+                    if not shortest or len(newpath) < len(shortest):
+                        shortest=newpath
+        return shortest
+
     def __str__(self):
         res = "vertices: "
         for k in self.graph_dict:

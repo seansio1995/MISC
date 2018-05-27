@@ -9,7 +9,15 @@ if __name__=="__main__":
           "e" : ["c"],
           "f" : []
         }
-    graph = Graph(g)
+    g2 = {'A': ['B', 'C'],
+             'B': ['C', 'D'],
+             'C': ['D'],
+             'D': ['C'],
+             'E': ['F'],
+             'F': ['C']}
+
+#   graph=Graph(g)
+    graph = Graph(g2)
 
     print("Vertices of graph:")
     print(graph.vertices())
@@ -39,4 +47,7 @@ if __name__=="__main__":
     print("Edges of graph:")
     print(graph.edges())
 
-    print(graph.find_all_paths("a","b"))
+    print(graph.find_all_paths("A","D"))
+    #print(graph.find_all_paths("a","e"))
+    #
+    print(graph.find_shortest_path("A","D"))
